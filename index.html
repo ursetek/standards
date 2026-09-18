@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URSE Standards</title>
+  <meta name="description" content="Standards published by the URSETek organization.">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="./">
+    <strong>URSE Standards</strong>
+  </a>
+  <nav>
+    <a href="standards/index.html">Registry</a>
+    <a href="#about">About</a>
+    <a href="https://github.com/URSETek/standards">GitHub</a>
+  </nav>
+</header>
+
+<main>
+
+  <h1>URSE Standards</h1>
+  <p class="subtitle">
+    Standards published by the URSETek organization. Each standard defines
+    a format, a protocol, or a convention that URSETek projects are
+    expected to follow.
+  </p>
+
+  <section id="pinned">
+    <h2>Pinned</h2>
+    <p>
+      Standards of particular importance or in active development. The full
+      list is in the <a href="standards/index.html">registry</a>.
+    </p>
+    <ul class="card-grid">
+
+      <li>
+        <a class="card" href="standards/dr/index.html">
+          <h3>
+            URSE DR
+            <span class="badge pinned">Pinned</span>
+            <span class="badge version">v0.1.0</span>
+            <span class="badge status-provisional">Provisional</span>
+          </h3>
+          <p>File format and location for Decision Records.</p>
+        </a>
+      </li>
+
+    </ul>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+
+    <h3>Statuses</h3>
+    <p>Every standard carries one of the following statuses:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge status-provisional">Provisional</span></td>
+          <td>The standard is published, but not yet ratified by an RFC.</td>
+        </tr>
+        <tr>
+          <td><span class="badge status-consolidated">Consolidated</span></td>
+          <td>The standard is ratified by one or more RFCs. The standard page lists them under <em>Consolidated by</em>.</td>
+        </tr>
+        <tr>
+          <td><span class="badge status-deprecated">Deprecated</span></td>
+          <td>The standard is no longer recommended, but no replacement exists.</td>
+        </tr>
+        <tr>
+          <td><span class="badge status-superseded">Superseded</span></td>
+          <td>The standard has been replaced by a later one.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Consolidation</h3>
+    <p>
+      A standard begins as <em>Provisional</em>: the text exists, but it has
+      not been ratified by the RFC process. When the URSETek RFC process is
+      running, one or more RFCs are written in the
+      <a href="https://github.com/URSETek/rfcs">URSETek/rfcs</a> repository.
+      Once those RFCs are accepted, the standard moves to
+      <em>Consolidated</em> and its page gains a <em>Consolidated by</em>
+      section listing the RFCs that back it.
+    </p>
+    <p>
+      A provisional standard MAY use the IETF RFC 2119 keywords
+      (<code>MUST</code>, <code>SHOULD</code>, <code>MAY</code>), but is not
+      required to. A consolidated standard MUST reference the RFCs that
+      ratify it.
+    </p>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+
+    <div class="footer-col">
+      <h4>Organization</h4>
+      <ul>
+        <li>
+          <a href="https://github.com/ursetek">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            URSETek on GitHub
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/standards">
+            <i class="fa-solid fa-book" aria-hidden="true"></i>
+            Standards repository
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/rfcs">
+            <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+            RFC repository
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Standards</h4>
+      <ul>
+        <li>
+          <a href="standards/index.html">
+            <i class="fa-solid fa-list" aria-hidden="true"></i>
+            Registry
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li>
+          <a href="mailto:vi.is.chapmann@gmail.com">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            vi.is.chapmann@gmail.com
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/standards/issues">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            Issue tracker
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/standards/discussions">
+            <i class="fa-solid fa-comments" aria-hidden="true"></i>
+            Discussions
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-legal">
+    <p>
+      URSETek. Standards for the organization, published openly.
+    </p>
+    <p>
+      Source: <a href="https://github.com/ursetek/standards">github.com/ursetek/standards</a>
+    </p>
+    <p class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+        <i class="fa-brands fa-creative-commons" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i>
+        Creative Commons Attribution 4.0 International License
+      </a>.
+      The text of all standards is licensed under a CC BY 4.0 International License.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

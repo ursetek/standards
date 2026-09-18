@@ -1,0 +1,790 @@
+/* URSE Standards — shared stylesheet for all standard pages. */
+
+/* ============================================================
+     Design tokens
+     ============================================================ */
+
+:root {
+    --bg: #faf9f7;
+    --bg-alt: #f2efea;
+    --bg-card: #ffffff;
+    --fg: #2a2622;
+    --fg-muted: #6b6560;
+    --border: #ddd8d1;
+    --accent: #b5542a;
+    --accent-hover: #8f3f1c;
+    --code-bg: #f2efea;
+
+    --status-provisional-bg: #fef3c7;
+    --status-provisional-fg: #92400e;
+    --status-consolidated-bg: #d1fae5;
+    --status-consolidated-fg: #065f46;
+    --status-deprecated-bg: #f3f4f6;
+    --status-deprecated-fg: #4b5563;
+    --status-superseded-bg: #ede9fe;
+    --status-superseded-fg: #5b21b6;
+
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    --max-width: 860px;
+    --radius: 6px;
+    --transition: 150ms ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+    --bg: #1c1a17;
+    --bg-alt: #262320;
+    --bg-card: #262320;
+    --fg: #ece7e0;
+    --fg-muted: #a39c93;
+    --border: #3d3833;
+    --accent: #e08a5c;
+    --accent-hover: #f0a878;
+    --code-bg: #262320;
+
+    --status-provisional-bg: #4a3410;
+    --status-provisional-fg: #fcd34d;
+    --status-consolidated-bg: #0d3d2a;
+    --status-consolidated-fg: #6ee7b7;
+    --status-deprecated-bg: #2a2a2a;
+    --status-deprecated-fg: #9ca3af;
+    --status-superseded-bg: #2e1e5c;
+    --status-superseded-fg: #c4b5fd;
+    }
+}
+
+/* ============================================================
+     Reset and base
+     ============================================================ */
+
+* { box-sizing: border-box; }
+
+html {
+    font-size: 17px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    color: var(--fg);
+    background: var(--bg);
+}
+
+/* ============================================================
+     Animations
+     ============================================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+    body {
+    animation: fade-in 250ms ease-out;
+    }
+
+    @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+    }
+
+    a, button, .card, .badge {
+    transition:
+      color var(--transition),
+      background-color var(--transition),
+      border-color var(--transition),
+      transform var(--transition),
+      box-shadow var(--transition);
+    }
+
+    .card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================================
+     Header
+     ============================================================ */
+
+header.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1.5rem;
+    padding-inline: max(1.5rem, calc((100% - var(--max-width)) / 2 + 1.5rem));  /* NEW */
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+header.site-header .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--fg);
+}
+
+header.site-header .brand strong {
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+header.site-header nav {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+header.site-header nav a {
+    color: var(--fg-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+header.site-header nav a:hover {
+    color: var(--accent);
+}
+
+/* ============================================================
+     Main layout
+     ============================================================ */
+
+main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+}
+
+/* ============================================================
+     Typography
+     ============================================================ */
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    color: var(--fg-muted);
+    font-size: 1.1rem;
+    margin: 0 0 2.5rem;
+    max-width: 60ch;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 3rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 2rem 0 0.75rem;
+}
+
+p { margin: 0 0 1rem; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); }
+
+ul, ol { margin: 0 0 1rem; padding-left: 1.5rem; }
+li { margin: 0.35rem 0; }
+
+/* ============================================================
+     Code
+     ============================================================ */
+
+code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: var(--code-bg);
+    padding: 0.15em 0.4em;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    margin: 0 0 1.5rem;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+}
+
+/* ============================================================
+     Badges
+     ============================================================ */
+
+.badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.15em 0.6em;
+    letter-spacing: 0.03em;
+    background: var(--bg-alt);
+    color: var(--fg-muted);
+}
+
+.badge.version {
+    color: var(--accent);
+}
+
+.badge.status-provisional {
+    background: var(--status-provisional-bg);
+    color: var(--status-provisional-fg);
+    border-color: transparent;
+}
+
+.badge.status-consolidated {
+    background: var(--status-consolidated-bg);
+    color: var(--status-consolidated-fg);
+    border-color: transparent;
+}
+
+.badge.status-deprecated {
+    background: var(--status-deprecated-bg);
+    color: var(--status-deprecated-fg);
+    border-color: transparent;
+}
+
+.badge.status-superseded {
+    background: var(--status-superseded-bg);
+    color: var(--status-superseded-fg);
+    border-color: transparent;
+}
+
+/* ============================================================
+     Cards (used by the standards registry)
+     ============================================================ */
+
+.card-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    margin: 0 0 2rem;
+    padding: 0;
+    list-style: none;
+}
+
+.card {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.05rem;
+    color: var(--fg);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.card p {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: 0.925rem;
+}
+
+/* ============================================================
+     Callouts
+     ============================================================ */
+
+.callout {
+    background: var(--bg-alt);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 0.75rem 1rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+.callout p:last-child { margin-bottom: 0; }
+
+/* ============================================================
+     Tables
+     ============================================================ */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1.5rem;
+    font-size: 0.9rem;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+}
+
+th {
+    background: var(--bg-alt);
+    font-weight: 600;
+}
+
+/* ============================================================
+     Inline table of contents (for standard pages)
+     ============================================================ */
+
+nav.toc {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin: 0 0 2.5rem;
+    font-size: 0.925rem;
+}
+
+nav.toc h2 {
+    margin: 0 0 0.5rem;
+    padding: 0;
+    border: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg-muted);
+}
+
+nav.toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+}
+
+nav.toc li { margin: 0; }
+
+nav.toc a {
+    color: var(--fg-muted);
+    text-decoration: none;
+}
+
+nav.toc a:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* ============================================================
+     File tree (semantic, used for showing directory layouts)
+     ============================================================ */
+
+ul.file-tree {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.8;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin: 0 0 1.5rem;
+    list-style: none;
+}
+
+ul.file-tree ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--border);
+}
+
+ul.file-tree > li { margin: 0; }
+
+ul.file-tree li {
+    margin: 0;
+    position: relative;
+}
+
+ul.file-tree li::before {
+    content: "";
+    position: absolute;
+    left: -1.5rem;
+    top: 0.9em;
+    width: 1rem;
+    height: 0;
+    border-bottom: 1px solid var(--border);
+}
+
+ul.file-tree > li::before { display: none; }
+
+ul.file-tree .dir {
+    font-weight: 600;
+    color: var(--fg);
+}
+
+ul.file-tree .file {
+    color: var(--fg-muted);
+}
+
+/* ============================================================
+     Footer
+     ============================================================ */
+
+footer.site-footer {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+}
+
+footer.site-footer p { margin: 0 0 0.5rem; }
+
+footer.site-footer .license {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+}
+
+/* ============================================================
+     Responsive
+     ============================================================ */
+
+@media (max-width: 640px) {
+    header.site-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; }
+    pre { font-size: 0.8rem; }
+    ul.file-tree { font-size: 0.8rem; }
+    nav.toc ol { flex-direction: column; gap: 0.25rem; }
+}
+
+/* ============================================================
+     Search (registry page)
+     ============================================================ */
+
+.search-bar {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin: 0 0 1.5rem;
+    flex-wrap: wrap;
+}
+
+.search-bar input[type="search"] {
+    flex: 1 1 240px;
+    min-width: 0;
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    color: var(--fg);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-bar input[type="search"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.search-bar label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    user-select: none;
+    cursor: pointer;
+}
+
+.search-bar label input[type="checkbox"] {
+    accent-color: var(--accent);
+}
+
+.search-empty {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--fg-muted);
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+/* ============================================================
+     Table row hover (registry)
+     ============================================================ */
+
+table.registry tbody tr {
+    transition: background-color var(--transition);
+}
+
+table.registry tbody tr:hover {
+    background: var(--bg-alt);
+}
+
+table.registry td a {
+    font-weight: 500;
+}
+
+/* ============================================================
+     Pinned badge
+     ============================================================ */
+
+.badge.pinned {
+    background: var(--bg-alt);
+    color: var(--accent);
+    border-color: var(--border);
+}
+
+.badge.pinned::before {
+    content: "◆ ";
+    font-size: 0.65em;
+}
+
+/* ============================================================
+   Footer — full layout with columns
+   ============================================================ */
+
+footer.site-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem 2.5rem;
+  margin: 0 0 2rem;
+}
+
+.footer-col h4 {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg);
+}
+
+.footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-col li {
+  margin: 0 0 0.4rem;
+}
+
+.footer-col a {
+  color: var(--fg-muted);
+  text-decoration: none;
+}
+
+.footer-col a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.footer-col a i {
+  width: 1.1em;
+  text-align: center;
+  margin-right: 0.4em;
+  opacity: 0.7;
+}
+
+.footer-legal {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.footer-legal p { margin: 0 0 0.4rem; }
+
+.footer-legal .license a {
+  color: var(--fg-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+
+.footer-legal .license a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ============================================================
+   Toggle switch — custom checkbox with icon (regex mode)
+   ============================================================ */
+
+.toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  transition: color var(--transition);
+}
+
+.toggle-switch:hover { color: var(--fg); }
+
+/* Hide the native checkbox but keep it accessible. */
+.toggle-switch input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.toggle-switch .toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1em;
+  height: 2.1em;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition);
+}
+
+.toggle-switch:hover .toggle-icon {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.toggle-switch input:checked + .toggle-icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.toggle-switch input:focus-visible + .toggle-icon {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.toggle-switch input:checked ~ .toggle-label {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Windows High Contrast Mode: keep state visible. */
+@media (forced-colors: active) {
+  .toggle-switch input:checked + .toggle-icon {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+}
+
+/* ============================================================
+   Tooltip (CSS-only, on hover and focus)
+   ============================================================ */
+
+.toggle-switch {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  z-index: 200;
+
+  padding: 0.4rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+
+  color: var(--bg);
+  background: var(--fg);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  opacity: 0;
+  transform: translateY(2px);
+  pointer-events: none;
+  transition:
+    opacity var(--transition),
+    transform var(--transition);
+}
+
+/* Arrow. */
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 0.75rem;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top-color: var(--fg);
+  margin-top: -1px;
+}
+
+.toggle-switch:hover .tooltip,
+.toggle-switch:focus-within .tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transition: none;
+    transform: none;
+  }
+}

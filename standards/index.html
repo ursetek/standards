@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registry — URSE Standards</title>
+  <meta name="description" content="Full registry of standards published by the URSETek organization.">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="../">
+    <strong>URSE Standards</strong>
+  </a>
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="#">Registry</a>
+    <a href="https://github.com/URSETek/standards">GitHub</a>
+  </nav>
+</header>
+
+<main>
+
+  <h1>Registry</h1>
+  <p class="subtitle">
+    Every standard published by URSETek. Filter by name, or scroll the
+    table.
+  </p>
+
+  <div class="search-bar">
+    <input
+      type="search"
+      id="registry-search"
+      placeholder="Filter by name…"
+      autocomplete="off"
+      aria-label="Filter standards by name">
+
+    <label class="toggle-switch" aria-label="Enable regular expression matching">
+      <input type="checkbox" id="registry-regex">
+      <span class="toggle-icon" aria-hidden="true">
+        <i class="fa-solid fa-percent"></i>
+      </span>
+      <span class="tooltip" role="tooltip">Toggle regex mode</span>
+    </label>
+  </div>
+
+  <table class="registry">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Version</th>
+      </tr>
+    </thead>
+    <tbody id="registry-body">
+
+      <tr data-name="URSE DR">
+        <td><a href="dr/index.html">URSE DR</a></td>
+        <td>File format and location for Decision Records.</td>
+        <td><span class="badge status-provisional">Provisional</span></td>
+        <td><span class="badge version">v0.1.0</span></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <p class="search-empty" id="registry-empty" hidden>
+    No standards match the filter.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+
+    <div class="footer-col">
+      <h4>Organization</h4>
+      <ul>
+        <li>
+          <a href="https://github.com/ursetek">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            URSETek on GitHub
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/standards">
+            <i class="fa-solid fa-book" aria-hidden="true"></i>
+            Standards repository
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/rfcs">
+            <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+            RFC repository
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Standards</h4>
+      <ul>
+        <li>
+          <a href="../index.html">
+            <i class="fa-solid fa-list" aria-hidden="true"></i>
+            Registry
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li>
+          <a href="mailto:vi.is.chapmann@gmail.com">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            vi.is.chapmann@gmail.com
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/standards/issues">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            Issue tracker
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/standards/discussions">
+            <i class="fa-solid fa-comments" aria-hidden="true"></i>
+            Discussions
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-legal">
+    <p>
+      URSETek. Standards for the organization, published openly.
+    </p>
+    <p>
+      Source: <a href="https://github.com/ursetek/standards">github.com/ursetek/standards</a>
+    </p>
+    <p class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+        <i class="fa-brands fa-creative-commons" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i>
+        Creative Commons Attribution 4.0 International License
+      </a>.
+      The text of all standards is licensed under a CC BY 4.0 International License.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const input = document.getElementById('registry-search');
+  const regexBox = document.getElementById('registry-regex');
+  const rows = Array.from(document.querySelectorAll('#registry-body tr'));
+  const empty = document.getElementById('registry-empty');
+
+  function apply() {
+    const query = input.value.trim();
+    const useRegex = regexBox.checked;
+
+    let matcher;
+    if (!query) {
+      matcher = () => true;
+    } else if (useRegex) {
+      let re;
+      try {
+        re = new RegExp(query, 'i');
+      } catch (e) {
+        // Invalid regex: show nothing rather than crash.
+        matcher = () => false;
+        rows.forEach(r => r.hidden = true);
+        empty.hidden = false;
+        return;
+      }
+      matcher = (name) => re.test(name);
+    } else {
+      const needle = query.toLowerCase();
+      matcher = (name) => name.toLowerCase().includes(needle);
+    }
+
+    let visible = 0;
+    for (const row of rows) {
+      const name = row.dataset.name || '';
+      const show = matcher(name);
+      row.hidden = !show;
+      if (show) visible++;
+    }
+    empty.hidden = visible > 0;
+  }
+
+  input.addEventListener('input', apply);
+  regexBox.addEventListener('change', apply);
+})();
+</script>
+
+</body>
+</html>

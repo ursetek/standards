@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URSE DR v0.1.0 — Decision Records</title>
+  <meta name="description" content="URSE DR v0.1.0: file format and location for Decision Records in the URSETek organization.">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="../../">
+    <strong>URSE Standards</strong>
+  </a>
+  <nav>
+    <a href="../">Registry</a>
+    <a href="https://github.com/URSETek/standards">GitHub</a>
+  </nav>
+</header>
+
+<main>
+
+  <h1>URSE DR</h1>
+  <p class="subtitle">
+    Decision Records for the URSETek organization. A file format and a
+    location for recording decisions, nothing more.
+    <br>
+    <span class="badge version">v0.1.0</span>
+    <span class="badge status-provisional">Provisional</span>
+  </p>
+
+  <nav class="toc" aria-label="Table of contents">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#what">What is a DR</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#format">Format</a></li>
+      <li><a href="#numbering">Numbering</a></li>
+      <li><a href="#status">Status</a></li>
+      <li><a href="#template">Template</a></li>
+      <li><a href="#scope">Scope</a></li>
+    </ol>
+  </nav>
+
+  <section id="what">
+    <h2>What is a DR</h2>
+    <p>
+      A Decision Record (DR) is a short Markdown document that captures one
+      decision, the context that forced it, and its consequences.
+    </p>
+    <p>
+      URSE DR is the URSETek standard for those documents. It defines two
+      things and only two things:
+    </p>
+    <ul>
+      <li>the <a href="#location">location</a> where DRs are stored;</li>
+      <li>the <a href="#format">file format</a> of a DR.</li>
+    </ul>
+    <p>
+      Everything else &mdash; who approves a DR, whether a DR needs its own
+      pull request, when a DR becomes binding, how statuses are enforced
+      &mdash; is a project-level concern. URSE DR does not prescribe any of it.
+    </p>
+    <div class="callout">
+      <p>
+        <strong>Consolidation.</strong> This standard is currently
+        <em>Provisional</em>. It will move to <em>Consolidated</em> once the
+        URSETek RFC process is running and one or more RFCs ratify it. At
+        that point a <em>Consolidated by</em> section will be added below.
+      </p>
+    </div>
+  </section>
+
+  <section id="location">
+    <h2>Location</h2>
+    <p>
+      DRs live in the <code>docs/dr/</code> directory at the root of the
+      repository they belong to.
+    </p>
+
+    <ul class="file-tree">
+      <li>
+        <span class="dir">repository/</span>
+        <ul>
+          <li>
+            <span class="dir">docs/</span>
+            <ul>
+              <li>
+                <span class="dir">dr/</span>
+                <ul>
+                  <li><span class="file">README.md</span></li>
+                  <li><span class="file">000-dr.md</span></li>
+                  <li><span class="file">001-&lt;slug&gt;.md</span></li>
+                  <li><span class="file">002-&lt;slug&gt;.md</span></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>
+      The <code>README.md</code> file is optional. If present, it MAY list
+      the DRs of the project or point to this standard, but its content is
+      not governed by URSE DR.
+    </p>
+    <p>
+      Cross-project decisions live in the organization-level
+      <code>URSETek/dr</code> repository, following the same layout.
+    </p>
+  </section>
+
+  <section id="format">
+    <h2>Format</h2>
+    <p>Every DR is a Markdown file with the following sections, in this order:</p>
+    <ol>
+      <li><strong>Title</strong> &mdash; <code># &lt;short decision title&gt;</code></li>
+      <li><strong>Status</strong> &mdash; <code>Status: **VALUE**</code> on its own line</li>
+      <li><strong>Context</strong> &mdash; the situation and the problem</li>
+      <li><strong>Decision</strong> &mdash; what was decided</li>
+      <li><strong>Consequences</strong> &mdash; what follows from the decision</li>
+    </ol>
+    <p>
+      Additional sections (<code>Considered options</code>,
+      <code>Rationale</code>, <code>References</code>) MAY be added and are
+      encouraged when they add information. The five sections above are the
+      minimum.
+    </p>
+    <div class="callout">
+      <p>
+        URSE DR does <strong>not</strong> require a date in the document
+        body. The date is always recoverable from version control history.
+      </p>
+    </div>
+  </section>
+
+  <section id="numbering">
+    <h2>Numbering</h2>
+    <p>
+      DRs are numbered with an odd number of digits, minimum three. The
+      number is part of the filename and is never reused.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Filename</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>000</code></td>
+          <td><code>000-dr.md</code></td>
+          <td>Always: "Use URSE DR". The bootstrap record.</td>
+        </tr>
+        <tr>
+          <td><code>001</code></td>
+          <td><code>001-&lt;slug&gt;.md</code></td>
+          <td>First project-specific decision.</td>
+        </tr>
+        <tr>
+          <td><code>002</code></td>
+          <td><code>002-&lt;slug&gt;.md</code></td>
+          <td>Second decision, and so on.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      The slug is lowercase, hyphen-separated, and describes the decision in
+      two to five words. Example:
+      <code>003-cross-document-references.md</code>.
+    </p>
+    <p>
+      Future numbers MAY use five digits (<code>00001</code>) if a project
+      expects more than a thousand DRs. The odd-count rule is preserved;
+      the choice of three or five is project-level.
+    </p>
+  </section>
+
+  <section id="status">
+    <h2>Status</h2>
+    <p>
+      Every DR carries exactly one status, written as
+      <code>Status: **VALUE**</code> on its own line after the title.
+      URSE DR defines the set of allowed values; their exact semantics and
+      the process for changing them are project-level.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Value</th>
+          <th>General intent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>PROPOSED</code></td><td>Written, not yet in force.</td></tr>
+        <tr><td><code>ACCEPTED</code></td><td>In force for the project.</td></tr>
+        <tr><td><code>DEPRECATED</code></td><td>No longer recommended.</td></tr>
+        <tr><td><code>SUPERSEDED</code></td><td>Replaced by a later DR.</td></tr>
+        <tr><td><code>REJECTED</code></td><td>Considered and not adopted.</td></tr>
+      </tbody>
+    </table>
+    <p>
+      The value is uppercase. A project MAY define additional values if
+      needed, but MUST support the five above.
+    </p>
+  </section>
+
+  <section id="template">
+    <h2>Template</h2>
+    <p>Copy this into a new file <code>docs/dr/NNN-slug.md</code>:</p>
+    <pre><code># &lt;Short decision title&gt;
+
+Status: **PROPOSED**
+
+## Context
+
+&lt;The situation and the problem. What forces are at play? What constraints
+exist?&gt;
+
+## Decision
+
+&lt;What was decided. Be specific: name the chosen option, the APIs, the
+formats, the boundaries.&gt;
+
+## Consequences
+
+*   &lt;What becomes true as a result.&gt;
+*   &lt;What becomes harder or impossible.&gt;
+*   &lt;What must be done differently from now on.&gt;
+</code></pre>
+  </section>
+
+  <section id="scope">
+    <h2>Scope</h2>
+    <p>URSE DR standardizes the following:</p>
+    <ul>
+      <li>The directory where DRs are stored: <code>docs/dr/</code>.</li>
+      <li>The filename pattern: <code>NNN-slug.md</code>.</li>
+      <li>The section structure of a DR document.</li>
+      <li>The set of allowed status values.</li>
+      <li>The rule that <code>000-dr.md</code> is always "Use URSE DR".</li>
+    </ul>
+    <p>URSE DR deliberately does <strong>not</strong> standardize:</p>
+    <ul>
+      <li>Who may create, approve, or reject a DR.</li>
+      <li>Whether a DR requires its own pull request.</li>
+      <li>How long a DR stays in <code>PROPOSED</code>.</li>
+      <li>Whether a DR is required before implementation.</li>
+      <li>Whether accepted DRs may be edited.</li>
+      <li>Any enforcement mechanism, automated or human.</li>
+    </ul>
+    <p>
+      These are project-level policies. A project using URSE DR documents
+      its own process wherever it keeps its contributor guidelines.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+
+    <div class="footer-col">
+      <h4>Organization</h4>
+      <ul>
+        <li>
+          <a href="https://github.com/ursetek">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            URSETek on GitHub
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/standards">
+            <i class="fa-solid fa-book" aria-hidden="true"></i>
+            Standards repository
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/rfcs">
+            <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+            RFC repository
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Standards</h4>
+      <ul>
+        <li>
+          <a href="standards/">
+            <i class="fa-solid fa-list" aria-hidden="true"></i>
+            Registry
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li>
+          <a href="mailto:vi.is.chapmann@gmail.com">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            vi.is.chapmann@gmail.com
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/standards/issues">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            Issue tracker
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ursetek/standards/discussions">
+            <i class="fa-solid fa-comments" aria-hidden="true"></i>
+            Discussions
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-legal">
+    <p>
+      URSETek. Standards for the organization, published openly.
+    </p>
+    <p>
+      Source: <a href="https://github.com/ursetek/standards">github.com/ursetek/standards</a>
+    </p>
+    <p class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+        <i class="fa-brands fa-creative-commons" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i>
+        Creative Commons Attribution 4.0 International License
+      </a>.
+      The text of all standards is licensed under a CC BY 4.0 International License.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
